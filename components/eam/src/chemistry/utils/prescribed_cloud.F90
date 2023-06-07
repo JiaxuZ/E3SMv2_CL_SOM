@@ -739,6 +739,10 @@ end subroutine prescribed_cloud_readnl
     
     if (native_grid_strct%time_coord%wghts(2) == 0.0_r8) then
        native_grid_strct%native_grid_flds(:,:,:) = native_grid_strct%native_grid_flds_tslices(:,:,:,1)
+    !+++JZ
+    elseif (native_grid_strct%time_coord%wghts(1) == 0.0_r8) then
+       native_grid_strct%native_grid_flds(:,:,:) = native_grid_strct%native_grid_flds_tslices(:,:,:,2)
+    !---JZ
     else
        native_grid_strct%native_grid_flds(:,:,:) = native_grid_strct%native_grid_flds_tslices(:,:,:,1) + &
             native_grid_strct%time_coord%wghts(2) * (native_grid_strct%native_grid_flds_tslices(:,:,:,2) - &

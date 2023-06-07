@@ -335,8 +335,14 @@ contains
     logical :: check
 
     real(r8) :: model_time
+    real(r8) :: model_time_temp, offset_time !JZ
 
     model_time = get_model_time() + this%dtime
+    !++JZ
+    offset_time = floor( (model_time - this%times(1)) / (this%total_time) )
+    model_time_temp = model_time - offset_time * (this%total_time)
+    !--JZ
+
 
     if (.not.this%fixed) then
        if (allocated(this%time_bnds)) then
@@ -348,7 +354,10 @@ contains
           end if
 !--BEH
        else
-          check = model_time > this%times(this%indxs(2))
+       !++JZ
+       !   check = model_time > this%times(this%indxs(2))
+          check = model_time_temp > this%times(this%indxs(2))
+       !--JZ
 !++BEH
           if (masterproc) then
              write(iulog,*) 'no time_bnds; model time is '
