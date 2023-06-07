@@ -1,5 +1,13 @@
 Please refer to the documentation in the config_machines.xml and config_compilers.xml files.
 
+Note by Jiaxu Zhang, 06/03/2023:
+  Update config files when moving from Cori to Perlmutter, following
+  https://github.com/E3SM-Project/E3SM/tree/maint-2.0/cime_config/machines
 
-
+  Add new files:
+    Depends.pm-cpu.nvidia.cmake
+    Depends.pm-gpu.nvidia.cmake
+    Depends.pm-gpu.nvidiagpu.cmake
+    syslog.pm-cpu
+    syslog.pm-gpu
 

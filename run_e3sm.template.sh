@@ -19,7 +19,7 @@ main() {
 
 # Machine and project
 readonly MACHINE=cori-knl
-readonly PROJECT="e3sm"
+readonly PROJECT="m4048"
 
 # Simulation
 readonly COMPSET="WCYCL1850"
@@ -44,7 +44,7 @@ readonly RUN_REFCASE="20210625.v2rc3c-GWD.piControl.ne30pg2_EC30to60E2r2.chrysal
 readonly RUN_REFDATE="1001-01-01"   # same as MODEL_START_DATE for 'branch', can be different for 'hybrid'
 
 # Set paths
-readonly CODE_ROOT="${HOME}/E3SMv2/code/${CHECKOUT}"
+readonly CODE_ROOT="/global/cfs/cdirs/m4048/jiaxu/E3SMv2"
 readonly CASE_ROOT="/global/cscratch1/sd/${USER}/E3SMv2/${CASE_NAME}"
 
 # Sub-directories
@@ -129,7 +129,7 @@ runtime_options
 copy_script
 
 # Submit
-case_submit
+# case_submit
 
 # All done
 echo $'\n----- All done -----\n'
