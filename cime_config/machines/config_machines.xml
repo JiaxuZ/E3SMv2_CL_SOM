@@ -55,12 +55,11 @@
      This allows using a different mpirun command to launch unit tests
 
   -->
-
   <machine MACH="pm-cpu">
     <DESC>Perlmutter CPU-only nodes at NERSC.  Phase2 only: Each node has 2 AMD EPYC 7713 64-Core (Milan) 512GB</DESC>
     <NODENAME_REGEX>$ENV{NERSC_HOST}:perlmutter</NODENAME_REGEX>
     <OS>Linux</OS>
-    <COMPILERS>gnu,intel,nvidia,amdclang</COMPILERS>
+    <COMPILERS>intel,gnu,nvidia,amdclang</COMPILERS>
     <MPILIBS>mpich</MPILIBS>
     <PROJECT>e3sm</PROJECT>
     <SAVE_TIMING_DIR>/global/cfs/cdirs/e3sm</SAVE_TIMING_DIR>
@@ -72,7 +71,7 @@
     <DIN_LOC_ROOT_CLMFORC>/global/cfs/cdirs/e3sm/inputdata/atm/datm7</DIN_LOC_ROOT_CLMFORC>
     <DOUT_S_ROOT>$CIME_OUTPUT_ROOT/archive/$CASE</DOUT_S_ROOT>
     <BASELINE_ROOT>/global/cfs/cdirs/e3sm/baselines/$COMPILER</BASELINE_ROOT>
-    <CCSM_CPRNC>/global/cfs/cdirs/e3sm/tools/cprnc.cori/cprnc</CCSM_CPRNC>
+    <CCSM_CPRNC>/global/cfs/cdirs/e3sm/tools/cprnc/cprnc</CCSM_CPRNC>
     <GMAKE_J>10</GMAKE_J>
     <TESTS>e3sm_developer</TESTS>
     <NTEST_PARALLEL_JOBS>4</NTEST_PARALLEL_JOBS>
@@ -105,6 +104,8 @@
         <command name="unload">cray-hdf5-parallel</command>
         <command name="unload">cray-netcdf-hdf5parallel</command>
         <command name="unload">cray-parallel-netcdf</command>
+        <command name="unload">cray-netcdf</command>
+        <command name="unload">cray-hdf5</command>
         <command name="unload">PrgEnv-gnu</command>
         <command name="unload">PrgEnv-intel</command>
         <command name="unload">PrgEnv-nvidia</command>
@@ -112,7 +113,10 @@
         <command name="unload">PrgEnv-aocc</command>
         <command name="unload">intel</command>
         <command name="unload">intel-oneapi</command>
+        <command name="unload">nvidia</command>
+        <command name="unload">aocc</command>
         <command name="unload">cudatoolkit</command>
+        <command name="unload">climate-utils</command>
         <command name="unload">craype-accel-nvidia80</command>
         <command name="unload">craype-accel-host</command>
         <command name="unload">perftools-base</command>
@@ -139,14 +143,14 @@
 
       <modules compiler="amdclang">
         <command name="load">PrgEnv-aocc</command>
-        <command name="load">aocc/3.2.0</command>
+        <command name="load">aocc/4.0.0</command>
         <command name="load">cray-libsci/23.02.1.1</command>
       </modules>
 
       <modules>
         <command name="load">craype-accel-host</command>
-        <command name="load">craype/2.7.19</command>
-        <command name="load">cray-mpich/8.1.24</command>
+        <command name="load">craype/2.7.20</command>
+        <command name="load">cray-mpich/8.1.25</command>
         <command name="load">cray-hdf5-parallel/1.12.2.3</command>
         <command name="load">cray-netcdf-hdf5parallel/4.9.0.3</command>
         <command name="load">cray-parallel-netcdf/1.12.3.3</command>
@@ -169,15 +173,8 @@
       <env name="PERL5LIB">/global/cfs/cdirs/e3sm/perl/lib/perl5-only-switch</env>
       <env name="FI_CXI_RX_MATCH_MODE">software</env>
       <env name="MPICH_COLL_SYNC">MPI_Bcast</env>
-    </environment_variables>
-    <environment_variables compiler="gnu" mpilib="mpich">
-      <env name="ADIOS2_DIR">/global/cfs/cdirs/e3sm/3rdparty/adios2/2.8.3.patch/cray-mpich-8.1.15/gcc-11.2.0</env>
-    </environment_variables>
-    <environment_variables compiler="nvidia" mpilib="mpich">
-      <env name="ADIOS2_DIR">/global/cfs/cdirs/e3sm/3rdparty/adios2/2.8.3.patch/cray-mpich-8.1.15/nvidia-21.11</env>
-    </environment_variables>
-    <environment_variables compiler="amdclang" mpilib="mpich">
-      <env name="ADIOS2_DIR">/global/cfs/cdirs/e3sm/3rdparty/adios2/2.8.3.patch/cray-mpich-8.1.15/aocc-3.2.0</env>
+      <env name="NETCDF_PATH">$ENV{CRAY_NETCDF_HDF5PARALLEL_PREFIX}</env>
+      <env name="PNETCDF_PATH">$ENV{CRAY_PARALLEL_NETCDF_PREFIX}</env>
     </environment_variables>
     <resource_limits>
       <resource name="RLIMIT_STACK">-1</resource>
